@@ -49,7 +49,7 @@ type deviceListResponse struct {
 func (zyxel *Zyxel) DeviceList() (*[]Device, error) {
 	var result deviceListResponse
 	resp, err := zyxel.Request.R().
-		SetBody(`{"show":{"interface":{},"ip":{"hotspot":{}},"associations":{},"schedule":{},"version":{},"rc":{"ip":{"hotspot":{"default-policy":{},"policy":{},"host":{}},"traffic-shape":{},"dhcp":{}}}}}`).
+		SetBody(`{"show":{"ip":{"hotspot":{}}}}`).
 		SetSuccessResult(&result).
 		Post("/rci/")
 	if err != nil {
