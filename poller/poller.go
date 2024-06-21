@@ -1,7 +1,7 @@
 package poller
 
 import (
-	"keenetic"
+	"github.com/mimimix/go-keenetic-api"
 	"time"
 )
 
