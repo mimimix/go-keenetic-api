@@ -1,31 +1,30 @@
-package poller
+package keenetic
 
 import (
-	"github.com/mimimix/go-keenetic-api"
 	"time"
 )
 
 type PollEvent struct {
 	IsOnline bool
-	Device   *keenetic.Device
+	Device   *Device
 }
 
 type Poller struct {
-	router       *keenetic.Keenetic
+	router       *Keenetic
 	Interval     int
 	Channel      chan *PollEvent
-	Devices      map[string]*keenetic.Device
+	Devices      map[string]*Device
 	ticker       *time.Ticker
 	isPolling    bool
 	isFirstCheck bool
 }
 
-func NewPoller(zyxelRouter *keenetic.Keenetic, interval int) *Poller {
+func NewPoller(zyxelRouter *Keenetic, interval int) *Poller {
 	return &Poller{
 		router:   zyxelRouter,
 		Interval: interval,
 		Channel:  make(chan *PollEvent),
-		Devices:  make(map[string]*keenetic.Device),
+		Devices:  make(map[string]*Device),
 	}
 }
 
