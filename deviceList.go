@@ -1,4 +1,4 @@
-package zyxel
+package keenetic
 
 type Device struct {
 	Mac       string `json:"mac"`
@@ -44,7 +44,7 @@ type deviceListResponse struct {
 	} `json:"show"`
 }
 
-func (zyxel *Zyxel) DeviceList() (*[]Device, error) {
+func (zyxel *Keenetic) DeviceList() (*[]Device, error) {
 	var result deviceListResponse
 	_, err := zyxel.Request.R().
 		SetBody(`{"show":{"ip":{"hotspot":{}}}}`).

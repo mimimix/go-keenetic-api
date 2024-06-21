@@ -1,4 +1,4 @@
-package zyxel
+package keenetic
 
 import (
 	"crypto/md5"
@@ -17,7 +17,7 @@ type authRequest struct {
 	Password string `json:"password"`
 }
 
-func (zyxel *Zyxel) Login() (error, []*http.Cookie) {
+func (zyxel *Keenetic) Login() (error, []*http.Cookie) {
 	authReq := req.C().SetBaseURL(zyxel.baseUrl)
 	respTokens, errTokens := authReq.R().Get("/auth")
 	if errTokens != nil {

@@ -2,35 +2,35 @@ package poller
 
 import (
 	"time"
-	"zyxel/pkg/zyxel"
+	keenetic "zyxel"
 )
 
 type PollEvent struct {
 	IsOnline bool
-	Device   *zyxel.Device
+	Device   *keenetic.Device
 }
 
 type Poller struct {
-	zyxel        *zyxel.Zyxel
+	router       *keenetic.Keenetic
 	Interval     int
 	Channel      chan *PollEvent
-	Devices      map[string]*zyxel.Device
+	Devices      map[string]*keenetic.Device
 	ticker       *time.Ticker
 	isPolling    bool
 	isFirstCheck bool
 }
 
-func NewPoller(zyxelRouter *zyxel.Zyxel, interval int) *Poller {
+func NewPoller(zyxelRouter *keenetic.Keenetic, interval int) *Poller {
 	return &Poller{
-		zyxel:    zyxelRouter,
+		router:   zyxelRouter,
 		Interval: interval,
 		Channel:  make(chan *PollEvent),
-		Devices:  make(map[string]*zyxel.Device),
+		Devices:  make(map[string]*keenetic.Device),
 	}
 }
 
 func (poller *Poller) CheckDevices() {
-	devices, err := poller.zyxel.DeviceList()
+	devices, err := poller.router.DeviceList()
 	if err != nil {
 		return
 	}

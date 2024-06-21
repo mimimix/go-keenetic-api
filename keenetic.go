@@ -1,19 +1,19 @@
-package zyxel
+package keenetic
 
 import (
 	"github.com/imroc/req/v3"
 	"net/http"
 )
 
-type Zyxel struct {
+type Keenetic struct {
 	username string
 	password string
 	baseUrl  string
 	Request  *req.Client
 }
 
-func NewZyxel(username, password, baseUrl string) *Zyxel {
-	zyxel := &Zyxel{
+func NewKeenetic(username, password, baseUrl string) *Keenetic {
+	zyxel := &Keenetic{
 		username: username,
 		password: password,
 		baseUrl:  baseUrl,
@@ -29,7 +29,7 @@ func NewZyxel(username, password, baseUrl string) *Zyxel {
 	return zyxel
 }
 
-func (zyxel *Zyxel) reauthManager(resp *req.Response, _ error) {
+func (zyxel *Keenetic) reauthManager(resp *req.Response, _ error) {
 	isSuccess, cookies := zyxel.Login()
 	if isSuccess == nil {
 		resp.Request.SetCookies(cookies...)
