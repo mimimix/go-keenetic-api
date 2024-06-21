@@ -1,7 +1,5 @@
 package zyxel
 
-import "fmt"
-
 type Device struct {
 	Mac       string `json:"mac"`
 	Via       string `json:"via"`
@@ -55,6 +53,5 @@ func (zyxel *Zyxel) DeviceList() (*[]Device, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(resp.ToString())
 	return &result.Show.Ip.Hotspot.Host, nil
 }
