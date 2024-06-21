@@ -1,4 +1,4 @@
-module zyxel
+module keenetic
 
 go 1.22.3
 

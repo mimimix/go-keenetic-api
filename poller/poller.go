@@ -1,8 +1,8 @@
 package poller
 
 import (
+	"keenetic"
 	"time"
-	keenetic "zyxel"
 )
 
 type PollEvent struct {
