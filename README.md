@@ -7,13 +7,13 @@ go get -u github.com/mimimix/go-keenetic-api
 
 ### Аунтефикация:
 ```go
-router := zyxel.NewZyxel("admin", "pass", "http://192.168.1.1")
+router := keenetic.NewKeenetic("admin", "pass", "http://192.168.1.1")
 err, cookies := router.Login() // Вообще он сам проверяет аунтефикация при любом запросе и когда надо перезаходит
 ```
 
 ### Список девайсов:
 ```go
-router := zyxel.NewZyxel("admin", "pass", "http://192.168.1.1")
+router := keenetic.NewKeenetic("admin", "pass", "http://192.168.1.1")
 devices, err := router.DeviceList() // Получает список устройств, поля смотреть в автокомплите
 ```
 
@@ -22,7 +22,7 @@ devices, err := router.DeviceList() // Получает список устро�
 ### Пуллер клиетов
 Сообщает когда в сеть заходит или выходит клиент
 ```go
-router := zyxel.NewZyxel("admin", "pass", "http://192.168.1.1")
+router := keenetic.NewKeenetic("admin", "pass", "http://192.168.1.1")
 poll := poller.NewPoller(router, 5) // 5 - это интервал
 poll.Start()
 poll.Stop()
