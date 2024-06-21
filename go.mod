@@ -1,4 +1,4 @@
-module keenetic
+module github.com/mimimix/go-keenetic-api
 
 go 1.22.3
 
