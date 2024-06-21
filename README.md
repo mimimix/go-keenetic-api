@@ -2,7 +2,7 @@
 Ниже не проверялись. 3.0+ тоже не проверял, но думаю время придёт рано или поздно
 
 ```bash
-go get -u github.com/tucnak/telebot
+go get -u github.com/mimimix/go-keenetic-api
 ```
 
 ### Аунтефикация:
