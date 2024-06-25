@@ -1,6 +1,7 @@
 package keenetic
 
 import (
+	"slices"
 	"time"
 )
 
@@ -17,14 +18,18 @@ type Poller struct {
 	ticker       *time.Ticker
 	isPolling    bool
 	isFirstCheck bool
+	LastOnline   LastOnline
 }
+
+type LastOnline map[string]time.Time
 
 func NewPoller(zyxelRouter *Keenetic, interval int) *Poller {
 	return &Poller{
-		router:   zyxelRouter,
-		Interval: interval,
-		Channel:  make(chan *PollEvent),
-		Devices:  make(map[string]*Device),
+		router:     zyxelRouter,
+		Interval:   interval,
+		Channel:    make(chan *PollEvent),
+		Devices:    make(map[string]*Device),
+		LastOnline: make(LastOnline),
 	}
 }
 
@@ -34,18 +39,38 @@ func (poller *Poller) CheckDevices() {
 		return
 	}
 
+	nowMacDevices := make([]string, len(*devices))
 	for _, device := range *devices {
+		nowMacDevices = append(nowMacDevices, device.Mac)
 		_, isExists := poller.Devices[device.Mac]
 		if !isExists && !poller.isFirstCheck {
-			poller.Channel <- &PollEvent{true, &device}
+			poller.Channel <- &PollEvent{device.Active, &device}
 		} else {
 			if poller.Devices[device.Mac].Active != device.Active {
 				poller.Channel <- &PollEvent{device.Active, &device}
+				if !device.Active {
+					poller.LastOnline[device.Mac] = time.Now()
+				} else {
+					delete(poller.Devices, device.Mac)
+				}
 			}
 		}
 		poller.Devices[device.Mac] = &device
 	}
+	for mac, device := range poller.Devices {
+		if !slices.Contains(nowMacDevices, mac) {
+			poller.Channel <- &PollEvent{false, device}
+			poller.LastOnline[device.Mac] = time.Now()
+		} else {
+			delete(poller.Devices, mac)
+		}
+	}
 	poller.isFirstCheck = false
+}
+
+func (poller *Poller) GetLastOnline(mac string) (time.Time, bool) {
+	t, isExists := poller.LastOnline[mac]
+	return t, isExists
 }
 
 func (poller *Poller) Start() {
