@@ -11,24 +11,24 @@ type Device struct {
 		Name        string `json:"name"`
 		Description string `json:"description"`
 	} `json:"interface"`
-	Expires         int    `json:"expires"`
+	Expires         int64  `json:"expires"`
 	Registered      bool   `json:"registered"`
 	Access          string `json:"access"`
 	Schedule        string `json:"schedule"`
 	Active          bool   `json:"active"`
 	Rxbytes         int64  `json:"rxbytes"`
-	Txbytes         int    `json:"txbytes"`
-	Uptime          int    `json:"uptime"`
-	FirstSeen       int    `json:"first-seen"`
-	LastSeen        int    `json:"last-seen"`
+	Txbytes         int64  `json:"txbytes"`
+	Uptime          int64  `json:"uptime"`
+	FirstSeen       int64  `json:"first-seen"`
+	LastSeen        int64  `json:"last-seen"`
 	Link            string `json:"link"`
 	AutoNegotiation bool   `json:"auto-negotiation"`
-	Speed           int    `json:"speed"`
+	Speed           int64  `json:"speed"`
 	Duplex          bool   `json:"duplex"`
 	EverSeen        bool   `json:"ever-seen"`
 	TrafficShape    struct {
-		Rx       int    `json:"rx"`
-		Tx       int    `json:"tx"`
+		Rx       int64  `json:"rx"`
+		Tx       int64  `json:"tx"`
 		Mode     string `json:"mode"`
 		Schedule string `json:"schedule"`
 	} `json:"traffic-shape"`
