@@ -12,7 +12,7 @@ type PollEvent struct {
 
 type Poller struct {
 	router       *Keenetic
-	Interval     int
+	Interval     int64
 	Channel      chan *PollEvent
 	Devices      map[string]*Device
 	ticker       *time.Ticker
@@ -23,7 +23,7 @@ type Poller struct {
 
 type LastOnline map[string]time.Time
 
-func NewPoller(zyxelRouter *Keenetic, interval int) *Poller {
+func NewPoller(zyxelRouter *Keenetic, interval int64) *Poller {
 	return &Poller{
 		router:     zyxelRouter,
 		Interval:   interval,
