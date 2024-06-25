@@ -59,9 +59,9 @@ func (poller *Poller) CheckDevices() {
 	}
 	for mac, device := range poller.Devices {
 		if !slices.Contains(nowMacDevices, mac) {
+			device.Active = false
 			poller.Channel <- &PollEvent{false, device}
 			poller.LastOnline[device.Mac] = time.Now()
-		} else {
 			delete(poller.Devices, mac)
 		}
 	}
